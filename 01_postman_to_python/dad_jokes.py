@@ -26,7 +26,17 @@ def get_dad_joke():
     print(response.text)
     """
     # TODO: Your Postman-exported code goes here
-    pass
+
+    url = "https://icanhazdadjoke.com/"
+
+    payload = {}
+    headers = {}
+
+    response = requests.get(url)
+
+    print(response.text)
+
+
 
 def main():
     """
@@ -35,6 +45,8 @@ def main():
     print("🎭 Getting a dad joke from the API...")
     
     # TODO: Call get_dad_joke() here
+    
+    get_dad_joke()
     
     print("✨ You just made your first API call with Python!")
 
