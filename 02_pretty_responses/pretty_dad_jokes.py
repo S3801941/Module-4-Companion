@@ -30,25 +30,44 @@ def get_pretty_dad_joke():
     
     # TODO: Your API call here (from Module 01)
     
+    url = "https://icanhazdadjoke.com/"
+
+    payload = {}
+    parameters = {'Accept': 'application/json'}
+
+    response = requests.get(url, headers={"Accept": "application/json"})
+
     # TODO: Convert to dictionary with response.json()
     
+    data = response.json()
+
     # TODO: Pretty print the full structure 
     print("📋 Raw API Response Structure:")
-    # print(json.dumps(your_data_variable, indent=4))
+    print(response.text)
+    print()
+    print("📋 Structured API Response Structure:")
+
+    print(json.dumps(data, indent=4))
     
     # TODO: Extract and display just the joke nicely
     print("\n🎭 Your Dad Joke:")
-    # print(f"   {your_joke_text}")
+
+    joke = data["joke"]
+
+    print(f"{joke}")
     
 def main():
     """
     TODO: Run your pretty joke function
     """
+    print("="*50)
     print("🎨 Making Dad Jokes Beautiful!")
     print("="*50)
     
     # TODO: Call get_pretty_dad_joke()
     
+    get_pretty_dad_joke()
+
     print("\n✨ Now that's a professionally formatted API response!")
 
 if __name__ == "__main__":
