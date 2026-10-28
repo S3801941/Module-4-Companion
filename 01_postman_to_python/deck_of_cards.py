@@ -23,10 +23,19 @@ def get_new_deck():
     
     Hint: Start simple - just get the response and print response.text
     """
-    # TODO: Your Postman-exported code goes here
-    pass
+    # TODO: Your Postman-exported code goes here.
 
-def draw_cards(deck_id, count=2):
+    url = "https://deckofcardsapi.com/api/deck/new/shuffle/"
+
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    print(response.text)
+
+
+def draw_cards(deck_id="[deck ID]", count=2):
     """
     TODO: Draw cards from your deck (we'll build on this later!)
     
@@ -44,6 +53,10 @@ def main():
     
     # TODO: Call get_new_deck() here
     
+    get_new_deck()
+
+    draw_cards()
+
     print("🎉 Perfect! You're ready to work with card data programmatically!")
 
 if __name__ == "__main__":
