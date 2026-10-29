@@ -29,18 +29,27 @@ def extract_and_format_joke():
     print("🎭 Fetching a premium dad joke...")
     
     # TODO: Your API call here
-    
+
+    url = "https://icanhazdadjoke.com/"
+
+    payload = {}
+    parameters = {'Accept': 'application/json'}
+
+    response = requests.get(url, headers={"Accept": "application/json"})
+
     # TODO: Convert to dictionary
     
+    data = response.json()
+
     # TODO: Extract the joke text
-    # joke_text = data['???']  # What field contains the joke?
+    joke_text = data['joke']
     
     # TODO: Create formatted output
     print("\n" + "="*60)
     print("🎪 DAD JOKE OF THE DAY 🎪")
     print("="*60)
     # TODO: Display the joke nicely
-    # print(f"   {joke_text}")
+    print(f"   {joke_text}")
     print("="*60)
     print("😂 Hope that made you smile! 😂")
 
@@ -63,18 +72,31 @@ def get_multiple_jokes(count=3):
     # TODO: Loop to get multiple jokes
     for i in range(count):
         # TODO: Make API call
+
+        url = "https://icanhazdadjoke.com/"
+
+        payload = {}
+        parameters = {'Accept': 'application/json'}
+
+        response = requests.get(url, headers={"Accept": "application/json"})
+
         # TODO: Extract joke text
+
+        data = response.json()
+
+        joke = data['joke']
         # TODO: Add to jokes list
-        pass
+        
+        jokes.append(joke)
     
     # TODO: Display all jokes in a nice format
     print("\n🎭 YOUR DAD JOKE COLLECTION:")
     print("-" * 50)
     
     # TODO: Loop through jokes and display with numbers
-    # for i, joke in enumerate(jokes, 1):
-    #     print(f"{i}. {joke}")
-    #     print()
+    for i, joke in enumerate(jokes, 1):
+        print(f"{i}. {joke}")
+        print()
 
 def main():
     """
@@ -84,10 +106,10 @@ def main():
     print("=" * 50)
     
     # TODO: Extract and format a single joke
-    # extract_and_format_joke()
+    extract_and_format_joke()
     
     # TODO: Try getting multiple jokes (uncomment when ready)
-    # get_multiple_jokes(3)
+    get_multiple_jokes(3)
     
     print("\n✨ You're extracting API data like a pro!")
 
