@@ -30,19 +30,35 @@ def create_and_explore_deck():
     
     # TODO: API call to create new deck (https://deckofcardsapi.com/api/deck/new/)
     
+    url = "https://deckofcardsapi.com/api/deck/new/"
+
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
     # TODO: Convert to dictionary
-    
+
+    your_data = response.json()
+
     # TODO: Pretty print the structure
     print("📋 New Deck Data Structure:")
-    # print(json.dumps(your_data, indent=4))
+    print(json.dumps(your_data, indent=4))
     
     # TODO: Extract key info
+
     print("\n🔍 Key Information:")
-    # print(f"   Deck ID: {deck_id}")
-    # print(f"   Cards Remaining: {remaining}")
-    # print(f"   Success: {success}")
+
+    deck_id = your_data["deck_id"]
+    print(f"   Deck ID: {deck_id}")
+
+    remaining = your_data["remaining"]
+    print(f"   Cards Remaining: {remaining}")
+
+    success = your_data["success"]
+    print(f"   Success: {success}")
     
-    return None  # TODO: Return the deck_id for use in drawing cards
+    return deck_id  # TODO: Return the deck_id for use in drawing cards
 
 def draw_and_explore_cards(deck_id, count=2):
     """
@@ -55,7 +71,7 @@ def draw_and_explore_cards(deck_id, count=2):
         print(f"\n🎴 Drawing {count} cards from deck {deck_id}...")
         # TODO: Implement in next module
     else:
-        print("⚠️ Need a deck_id first - complete the create_and_explore_deck function!")
+        print(f"\n⚠️ Need a deck_id first - complete the create_and_explore_deck function!")
 
 def main():
     """
@@ -65,7 +81,9 @@ def main():
     print("="*50)
     
     # TODO: Create deck and get deck_id
-    deck_id = None  # TODO: Get this from create_and_explore_deck()
+    # create_and_explore_deck creates the deck_ID and the return is the definition to the variable.
+    
+    deck_id = create_and_explore_deck()
     
     # TODO: Try drawing cards (we'll implement this fully later)
     draw_and_explore_cards(deck_id, 3)
