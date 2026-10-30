@@ -30,7 +30,7 @@ def create_deck_and_extract_info():
     
     # TODO: API call to create new deck
     
-    url = "https://deckofcardsapi.com/api/deck/new/"
+    url = "https://deckofcardsapi.com/api/deck/new/shuffle/"
 
     payload = {}
     headers = {}
@@ -154,12 +154,20 @@ def card_collection_summary(deck_id, draw_count=5):
 
     # TODO: Identify face cards (Jack, Queen, King)
 
-        if value == "ACE" or "KING" or "QUEEN" or "JACK":
+        if value == "ACE":
             face_cards.append(i)
+        elif value == "KING":
+            face_cards.append(i)
+        elif value == "QUEEN":
+            face_cards.append(i)
+        elif value == "JACK":
+            face_cards.append(i)
+        elif value.isdigit():
+            numeric_value += int(value)
+        
 
     # TODO: Calculate total card value (if numeric)
-        if isinstance(value, int):
-            numeric_value + value
+
 
     print("="*50)
     print()
