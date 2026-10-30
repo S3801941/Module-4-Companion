@@ -187,7 +187,7 @@ def card_collection_summary(deck_id, draw_count=5):
     print("Face Cards")
     print("-"*50)
     for face_card in face_cards:
-        print(f"{face_card} is a face card")
+        print(f"Card {face_card} is a face card")
     print()
     print("-"*50)
     print("Card Totals")
