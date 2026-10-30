@@ -35,22 +35,20 @@ def safe_dad_joke():
         print("🔄 Attempting to fetch dad joke...")
         
         # TODO: Make API request with error handling
-        # response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers)
         
         # TODO: Check status code
-        # if response.status_code == 200:
-        #     # TODO: Try to parse JSON
-        #     data = response.json()
-        #     joke = data['joke']
-        #     print(f"✅ Success! Here's your joke:")
-        #     print(f"   {joke}")
-        #     return True
-        # else:
-        #     print(f"❌ API returned status code: {response.status_code}")
-        #     return False
-        
-        print("TODO: Implement the API call with error handling!")
-        return False
+        if response.status_code == 200:
+            # TODO: Try to parse JSON
+            data = response.json()
+            joke = data['joke']
+            print(f"✅ Success! Here's your joke:")
+            print(f"   {joke}")
+            return True
+        else:
+            print(f"❌ API returned status code: {response.status_code}")
+            return False
+
         
     except requests.exceptions.ConnectionError:
         print("❌ Network connection failed. Check your internet!")
@@ -83,25 +81,23 @@ def safe_deck_creation():
         print("🔄 Creating new shuffled deck...")
         
         # TODO: Make API request
-        # response = requests.get(url)
+        response = requests.get(url)
         
         # TODO: Check response status
-        # response.raise_for_status()  # Raises exception for 4xx/5xx status codes
+        response.raise_for_status()  # Raises exception for 4xx/5xx status codes
         
         # TODO: Parse JSON
-        # data = response.json()
+        data = response.json()
         
         # TODO: Validate response has required fields
-        # if 'deck_id' in data and data['success']:
-        #     deck_id = data['deck_id']
-        #     print(f"✅ Deck created successfully! ID: {deck_id}")
-        #     return deck_id
-        # else:
-        #     print("❌ API response missing required fields")
-        #     return None
+        if 'deck_id' in data and data['success']:
+            deck_id = data['deck_id']
+            print(f"✅ Deck created successfully! ID: {deck_id}")
+            return deck_id
+        else:
+            print("❌ API response missing required fields")
+            return None
             
-        print("TODO: Implement safe deck creation!")
-        return None
         
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error creating deck: {e}")
@@ -129,8 +125,10 @@ def test_error_scenarios():
     print("\nTesting with broken URL...")
     try:
         # TODO: Try making request to broken URL
-        # response = requests.get(broken_url, timeout=5)
+        response = requests.get(broken_url, timeout=5)
         print("TODO: Test with broken URL to see error handling")
+    except requests.exceptions.ConnectionError:
+        print(f"Network Connection Error.")
     except requests.exceptions.RequestException as e:
         print(f"✅ Correctly caught error: {type(e).__name__}")
     
@@ -145,13 +143,13 @@ def main():
     
     # TODO: Test safe dad joke function
     print("\n1. Testing Safe Dad Joke:")
-    # success = safe_dad_joke()
+    success = safe_dad_joke()
     
     print("\n2. Testing Safe Deck Creation:")
-    # deck_id = safe_deck_creation()
+    deck_id = safe_deck_creation()
     
     print("\n3. Testing Error Scenarios:")
-    # test_error_scenarios()
+    test_error_scenarios()
     
     print("\n✨ You're building professional-grade error handling!")
 
