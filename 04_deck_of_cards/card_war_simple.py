@@ -33,14 +33,15 @@ def get_card_value(card):
     elif card_value == "QUEEN":
         return 12
     # TODO: Add more face card conditions
-    # elif card_value == ???:
-    #     return ???
+    elif card_value == "KING":
+        return 13
+    elif card_value == "ACE":
+        return 14
     
     # TODO: Handle number cards
-    # else:
-    #     return int(card_value)
+    else:
+        return int(card_value)
     
-    return 0  # TODO: Replace with actual logic
 
 def play_war_round(deck_id):
     """
@@ -58,34 +59,38 @@ def play_war_round(deck_id):
     print("\n🎲 Drawing cards for the battle...")
     
     # TODO: Draw 2 cards from deck
-    # url = f"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=2"
+    url = f"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=2"
+
+    response = requests.get(url)
+
+    data = response.json()
     
     # TODO: Extract the two cards
-    # cards = data['cards']
-    # player1_card = cards[0]  
-    # player2_card = cards[1]
+    cards = data['cards']
+    player1_card = cards[0]  
+    player2_card = cards[1]
     
     # TODO: Display the cards
     print("\n🎴 THE CARDS ARE DRAWN!")
     print("-" * 40)
-    # print(f"Player 1: {player1_card['value']} of {player1_card['suit']}")
-    # print(f"Player 2: {player2_card['value']} of {player2_card['suit']}")
+    print(f"Player 1: {player1_card['value']} of {player1_card['suit']}")
+    print(f"Player 2: {player2_card['value']} of {player2_card['suit']}")
     
     # TODO: Get numeric values for comparison
-    # value1 = get_card_value(player1_card)
-    # value2 = get_card_value(player2_card)
+    value1 = get_card_value(player1_card)
+    value2 = get_card_value(player2_card)
     
     # TODO: Determine winner
     print("\n⚔️ BATTLE RESULT:")
-    # if value1 > value2:
-    #     print("🏆 Player 1 wins this round!")
-    #     return "Player 1"
-    # elif value2 > value1:
-    #     print("🏆 Player 2 wins this round!")
-    #     return "Player 2"
-    # else:
-    #     print("🤝 It's a tie!")
-    #     return "Tie"
+    if value1 > value2:
+        print("🏆 Player 1 wins this round!")
+        return "Player 1"
+    elif value2 > value1:
+        print("🏆 Player 2 wins this round!")
+        return "Player 2"
+    else:
+        print("🤝 It's a tie!")
+        return "Tie"
 
 def play_war_game(rounds=3):
     """
@@ -104,6 +109,14 @@ def play_war_game(rounds=3):
     
     # TODO: Create new shuffled deck
     
+    url = "https://deckofcardsapi.com/api/deck/new/shuffle/"
+
+    response = requests.get(url)
+
+    data = response.json()
+
+    deck_id = data["deck_id"]
+
     # TODO: Initialize score tracking
     player1_wins = 0
     player2_wins = 0
@@ -114,32 +127,32 @@ def play_war_game(rounds=3):
         print(f"\n🎯 ROUND {round_num}")
         
         # TODO: Play one round and get winner
-        # winner = play_war_round(deck_id)
+        winner = play_war_round(deck_id)
         
         # TODO: Update scores based on winner
-        # if winner == "Player 1":
-        #     player1_wins += 1
-        # elif winner == "Player 2":  
-        #     player2_wins += 1
-        # else:
-        #     ties += 1
+        if winner == "Player 1":
+            player1_wins += 1
+        elif winner == "Player 2":  
+            player2_wins += 1
+        else:
+            ties += 1
         
         input("Press Enter to continue to next round...")
     
     # TODO: Announce final results
     print("\n🏁 FINAL RESULTS")
     print("=" * 30)
-    # print(f"Player 1 wins: {player1_wins}")
-    # print(f"Player 2 wins: {player2_wins}")  
-    # print(f"Ties: {ties}")
+    print(f"Player 1 wins: {player1_wins}")
+    print(f"Player 2 wins: {player2_wins}")  
+    print(f"Ties: {ties}")
     
     # TODO: Declare overall winner
-    # if player1_wins > player2_wins:
-    #     print("🎉 Player 1 is the War Champion!")
-    # elif player2_wins > player1_wins:
-    #     print("🎉 Player 2 is the War Champion!")
-    # else:
-    #     print("🤝 It's a tie overall!")
+    if player1_wins > player2_wins:
+        print("🎉 Player 1 is the War Champion!")
+    elif player2_wins > player1_wins:
+        print("🎉 Player 2 is the War Champion!")
+    else:
+        print("🤝 It's a tie overall!")
 
 def main():
     """
@@ -149,10 +162,10 @@ def main():
     print("=" * 30)
     
     # TODO: Ask user how many rounds to play
-    # rounds = int(input("How many rounds would you like to play? (1-10): "))
+    rounds = int(input("How many rounds would you like to play? (1-10): "))
     
     # TODO: Start the game
-    # play_war_game(rounds)
+    play_war_game(rounds)
     
     print("\n✨ You just built a game with API logic!")
 
