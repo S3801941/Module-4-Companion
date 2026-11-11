@@ -32,11 +32,11 @@ def authenticated_api_call():
     # TODO: Create headers like network devices expect
     headers = {
         # TODO: Add authentication header
-        # 'Authorization': 'Basic ' + base64.b64encode(b'admin:password').decode(),
+        'Authorization': 'Basic ' + base64.b64encode(b'admin:password').decode(),
         # TODO: Add content type
-        # 'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
         # TODO: Add user agent
-        # 'User-Agent': 'NetworkAutomation-Python/1.0'
+        'User-Agent': 'NetworkAutomation-Python/1.0'
     }
     
     # Test endpoint that echoes headers back
@@ -44,21 +44,21 @@ def authenticated_api_call():
     
     try:
         # TODO: Make request with headers
-        # response = requests.get(url, headers=headers)
-        
+        response = requests.get(url, headers=headers)
+         
         # TODO: Extract and display received headers
-        # data = response.json()
-        # received_headers = data['headers']
+        data = response.json()
+        received_headers = data['headers']
         
         print("📡 Headers sent to API:")
         # TODO: Display your headers nicely
-        # for key, value in headers.items():
-        #     print(f"   {key}: {value}")
+        for key, value in headers.items():
+            print(f"   {key}: {value}")
         
         print("\n📨 Headers received by API:")
         # TODO: Display received headers
-        # for key, value in received_headers.items():
-        #     print(f"   {key}: {value}")
+        for key, value in received_headers.items():
+            print(f"   {key}: {value}")
             
         print("TODO: Implement authenticated API call!")
         
@@ -86,23 +86,23 @@ def network_device_simulation():
         print("📡 Querying 'network device' status...")
         
         # TODO: Make API call
-        # response = requests.get(url)
+        response = requests.get(url)
         
         # TODO: Parse JSON response
-        # device_data = response.json()
+        device_data = response.json()
         
         # TODO: Display as if it's network device info
         print("\n🔧 DEVICE STATUS REPORT")
         print("=" * 40)
         
         # TODO: Extract and format data like network info
-        # print(f"Device Type: {device_data.get('slideshow', {}).get('author', 'Unknown')}")
-        # print(f"Status: Online")
-        # print(f"Response Time: {response.elapsed.total_seconds():.3f}s")
+        print(f"Device Type: {device_data.get('slideshow', {}).get('author', 'Unknown')}")
+        print(f"Status: Online")
+        print(f"Response Time: {response.elapsed.total_seconds():.3f}s")
         
         # TODO: Show raw data structure
         print("\n📋 Raw Device Data:")
-        # print(json.dumps(device_data, indent=2))
+        print(json.dumps(device_data, indent=2))
         
         print("TODO: Implement network device simulation!")
         
@@ -124,8 +124,16 @@ def test_different_methods():
     print("\n1. GET Request (Read Configuration):")
     try:
         # TODO: Make GET request
-        # response = requests.get(f"{base_url}/get")
-        print("TODO: Implement GET request")
+        response = requests.get(f"{base_url}/get")
+        data = response.json()
+        method = data['method']
+        origin = data['origin']
+        url = data['url']
+        print(f"Show Method: {method}")
+        print(f"Show IP: {origin}")
+        print(f"Show URL: {url}")
+
+
     except Exception as e:
         print(f"❌ GET failed: {e}")
     
@@ -134,8 +142,9 @@ def test_different_methods():
     try:
         config_data = {"interface": "GigabitEthernet0/1", "ip": "192.168.1.1"}
         # TODO: Make POST request with JSON data
-        # response = requests.post(f"{base_url}/post", json=config_data)
-        print("TODO: Implement POST request with config data")
+        response = requests.post(f"{base_url}/post", json=config_data)
+        data = response.json()
+        print(data)
     except Exception as e:
         print(f"❌ POST failed: {e}")
     
@@ -144,8 +153,8 @@ def test_different_methods():
     try:
         update_data = {"interface": "GigabitEthernet0/1", "ip": "192.168.1.10"}
         # TODO: Make PUT request
-        # response = requests.put(f"{base_url}/put", json=update_data)
-        print("TODO: Implement PUT request")
+        response = requests.put(f"{base_url}/put", json=update_data)
+        print()
     except Exception as e:
         print(f"❌ PUT failed: {e}")
 
@@ -160,10 +169,10 @@ def main():
     authenticated_api_call()
     
     # TODO: Test network device simulation
-    # network_device_simulation()
+    network_device_simulation()
     
     # TODO: Test different HTTP methods
-    # test_different_methods()
+    test_different_methods()
     
     print("\n🎉 CONGRATULATIONS!")
     print("You're ready for real network device APIs!")

@@ -111,6 +111,9 @@ def play_war_game(rounds=3):
     
     url = "https://deckofcardsapi.com/api/deck/new/shuffle/"
 
+    r = requests.get(url)
+    print(type(r.json()))
+
     response = requests.get(url)
 
     data = response.json()
